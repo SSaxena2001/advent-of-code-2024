@@ -15,23 +15,19 @@ for r, row in enumerate(topo_map):
 def count_paths(topo_map, sr, sc):
     rows, cols = len(topo_map), len(topo_map[0])
     # for part1  just switch this with a set
-    nine_positions = []
+    nine_positions = set()
 
     def dfs(r, c, path_height):
-        # Out of bounds check
         if r < 0 or r >= rows or c < 0 or c >= cols:
             return False
 
-        # Current cell height must strictly increase by 1
         if topo_map[r][c] != path_height + 1:
             return False
 
-        # If we've reached height 9, mark it
         if topo_map[r][c] == 9:
-            nine_positions.append((r, c))
+            nine_positions.add((r, c))
             return True
 
-        # Explore all four directions
         directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
         found_trail = False
         for dx, dy in directions:
@@ -41,11 +37,10 @@ def count_paths(topo_map, sr, sc):
 
         return found_trail
 
-    # Special approach for trailhead
+    # Special approach for trailhead to check if we are at one or not
     if topo_map[sr][sc] != 0:
         return 0
 
-    # Try all directions from the trailhead
     for dx, dy in [(0, 1), (1, 0), (0, -1), (-1, 0)]:
         new_r, new_c = sr + dx, sc + dy
         dfs(new_r, new_c, 0)
