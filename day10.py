@@ -15,7 +15,7 @@ for r, row in enumerate(topo_map):
 def count_paths(topo_map, sr, sc):
     rows, cols = len(topo_map), len(topo_map[0])
     # for part1  just switch this with a set
-    nine_positions = set()
+    nine_positions = []
 
     def dfs(r, c, path_height):
         if r < 0 or r >= rows or c < 0 or c >= cols:
@@ -25,7 +25,7 @@ def count_paths(topo_map, sr, sc):
             return False
 
         if topo_map[r][c] == 9:
-            nine_positions.add((r, c))
+            nine_positions.append((r, c))
             return True
 
         directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
