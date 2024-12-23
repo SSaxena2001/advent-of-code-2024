@@ -10,6 +10,31 @@ for x, y in edges:
 
 seen = set()
 
+
+def part2():
+    def search(node, req):
+        key = tuple(sorted(req))
+        if key in seen:
+            return
+        seen.add(key)
+        for neighbor in network[node]:
+            if neighbor in req:
+                continue
+            if not all(neighbor in network[query] for query in req):
+                continue
+            search(neighbor, {*req, neighbor})
+
+    for x in network:
+        search(x, {x})
+
+    print(",".join(sorted(max(seen, key=len))))
+    exit(0)
+
+
+part2()
+
+
+# Part 1 code
 for x in network:
     for y in network[x]:
         for z in network[y]:
