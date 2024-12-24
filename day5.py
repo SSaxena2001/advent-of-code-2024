@@ -2,17 +2,17 @@ from typing import Dict, List, Tuple
 from functools import cmp_to_key
 
 
-def part1(sequences: List[List[int]], order_pairs: List[Tuple[int, ...]]):
+def part1(seqs: List[List[int]], order_pairs: List[Tuple[int, ...]]):
     rules = get_orders_map(order_pairs)
     total = 0
-    for seq in sequences:
+    for seq in seqs:
         if is_safe(seq, rules):
             total += seq[len(seq) // 2]
 
     return total
 
 
-def part2(sequences: List[List[int]], order_pairs: List[Tuple[int, ...]]):
+def part2(seqs: List[List[int]], order_pairs: List[Tuple[int, ...]]):
     rules = get_orders_map(order_pairs)
     cmp_rules = get_orders_map2(order_pairs)
 
@@ -20,7 +20,7 @@ def part2(sequences: List[List[int]], order_pairs: List[Tuple[int, ...]]):
         return cmp_rules.get((a, b), 0)
 
     total = 0
-    for seq in sequences:
+    for seq in seqs:
         if is_safe(seq, rules):
             continue
         seq.sort(key=cmp_to_key(comparator))
@@ -60,9 +60,9 @@ if __name__ == "__main__":
     order, sample = input.split("\n\n")
 
     order_pairs = [tuple(map(int, x.split("|"))) for x in order.splitlines()]
-    sequences = [list(map(int, x.split(","))) for x in sample.splitlines()]
+    seqs = [list(map(int, x.split(","))) for x in sample.splitlines()]
 
-    # print(part1(sequences, order_pairs))
-    print(part2(sequences, order_pairs))
+    # print(part1(seqs, order_pairs))
+    print(part2(seqs, order_pairs))
 
     pass
